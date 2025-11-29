@@ -1,32 +1,50 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html>
-   <head>
-      <title>Timestamp Microservice | freeCodeCamp.org</title>
-      <link rel="shortcut icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon-32x32.png" type="image/x-icon"/>
-      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-      <link href="style.css" rel="stylesheet" type="text/css">
-   </head>
+  <head>
+    <meta charset="utf-8" />
+    <meat name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Timestamp Microservice</title>
+  </head>
+  <body>
+    <h1 style="background: #efe9e3; padding: 10px">Timestamp Microservice</h1>
 
-   <body>
-    <h1>Timestamp Microservice</h1>
+    <h2>Test it here:</h2>
+    <input
+      type="text"
+      id="dateInput"
+      placeholder="Enter a date (e.g., 2015-12-25) or leave empty for current time"
+    />
+    <button onclick="checkTimestamp()">Get Timestamp</button>
+
+    <div id="result"></div>
+
     <hr />
-    <div class="container">
-      <h2>Example Usage:</h2>
-      <ul>
-        <li><a href="api/2015-12-25">[project url]/api/2015-12-25</a></li>
-        <li><a href="api/1451001600000">[project url]/api/1451001600000</a></li>
-      </ul>
 
-      <h2>Example Output:</h2>
-      <p>
-        <code>{"unix":1451001600000, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"}</code>
-      </p>
-    </div>
-    <div class="footer">
-      <p>
-        By <a href="https://www.freecodecamp.org/">freeCodeCamp.org</a>
-      </p>
-    </div>
+    <h2>How to use:</h2>
+    <p><strong>/api/2015-12-25</strong> - Returns timestamp for that date</p>
+    <p>
+      <strong>/api/1451001600000</strong> - Returns date for that Unix timestamp
+    </p>
+    <p><strong>/api</strong> - Returns current time</p>
+
+    <script>
+      async function checkTimestamp() {
+        const input = document.getElementById("dateInput").value;
+        const resultDiv = document.getElementById("result");
+
+        const url = input ? "/api/" + input : "/api";
+        const response = await fetch(url);
+        const data = await response.json();
+
+        resultDiv.innerHTML =
+          "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+      }
+    </script>
   </body>
 </html>
